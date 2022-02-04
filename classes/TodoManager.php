@@ -37,9 +37,39 @@
             
             for($i=0; $i< $arrayCount; $i++){
                 $newi = $i;
-                echo '<p> Title: ' . $this->_dataArray[$i]['title'] .
-                 ' name: ' . $this->_dataArray[$i]['name'] . '</p>';
+                echo '<div> Title: ' . $this->_dataArray[$i]['title'] .
+                 ' description: ' . $this->_dataArray[$i]['description']
+                 . '<a href=/edit.php?id='.$this->_dataArray[$i]['id'].'>Edit</a>' . '</div>';
             }
         }
-    }
+
+
+        // Get item by id from file
+        public function getItem($id){
+            self::getTodoArray();
+            $arrayCount = count($this->_dataArray);
+
+            for($i=0; $i< $arrayCount; $i++){
+                if($id === $this->_dataArray[$i]['id']){
+                    return $this->_dataArray[$i];
+                }
+            }
+        }
+
+        // Update item 
+        public function updateItem($item){
+            self::getTodoArray();
+            $arrayCount = count($this->_dataArray);
+
+            for($i=0; $i< $arrayCount; $i++){
+                if($item->id === $this->_dataArray[$i]['id']){
+                    $this->_dataArray[$i]['title'] = $item->title;
+                    $this->_dataArray[$i]['description'] = $item->description;
+                    $this->_dataArrayJson = json_encode($this->_dataArray);
+                    file_put_contents($this->_dataName, $this->_dataArrayJson);
+                    self::getTodoArray();
+                } 
+            }
+        }
+      }
 ?>

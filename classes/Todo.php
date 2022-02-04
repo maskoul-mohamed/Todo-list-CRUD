@@ -1,5 +1,6 @@
 <?php
     class Todo {
+        public $id;
         public $title;
-        public $name;
+        public $description;
     }

@@ -4,10 +4,10 @@
     $newItem = new Todo();
     $todoManager = new TodoManager("data.json");
 
-    if(isset($_POST['title'], $_POST['name'])){
-
+    if(isset($_POST['title'], $_POST['description'])){
+        $newItem->id = uniqid();    
         $newItem->title = htmlspecialchars($_POST['title']);
-        $newItem->name = htmlspecialchars($_POST['name']);
+        $newItem->description = htmlspecialchars($_POST['description']);
         $todoManager->insertItem($newItem);
     }
 
@@ -26,9 +26,9 @@
     <div>
         <form action="index.php" method="post">
             <p>Add a new task</p>
-            <input type="text" name="title">
-            <input type="text" name="name">
-            <input type="submit" value="Add" name="submitButton">
+            <input type="text" name="title" placeholder="Enter Title">
+            <input type="text" name="description" placeholder="Enter description">
+            <input type="submit" value="Add" name="submitButton" >
         </form>
         <div>
             <?php
@@ -39,3 +39,5 @@
     </div>
 </body>
 </html>
+
+
