@@ -39,7 +39,8 @@
                 $newi = $i;
                 echo '<div> Title: ' . $this->_dataArray[$i]['title'] .
                  ' description: ' . $this->_dataArray[$i]['description']
-                 . '<a href=/edit.php?id='.$this->_dataArray[$i]['id'].'>Edit</a>' . '</div>';
+                 . ' <a href=/edit.php?id='.$this->_dataArray[$i]['id'].'>Edit</a>' 
+                 . ' <a href=delete.php?id='.$this->_dataArray[$i]['id'].'>Delete</a>' .'</div>';
             }
         }
 
@@ -71,5 +72,20 @@
                 } 
             }
         }
+
+        //Delete item 
+        public function deleteItem($id){
+            self::getTodoArray();
+            $arrayCount = count($this->_dataArray);
+
+            for($i=0; $i< $arrayCount; $i++){
+                if($id === $this->_dataArray[$i]['id']){
+                   unset( $this->_dataArray[$i]);
+                    $this->_dataArrayJson = json_encode($this->_dataArray);
+                    file_put_contents($this->_dataName, $this->_dataArrayJson);
+                    self::getTodoArray();
+                } 
+            }
+        } 
       }
 ?>
